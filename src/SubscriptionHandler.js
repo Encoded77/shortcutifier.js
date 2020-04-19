@@ -57,7 +57,7 @@ class SubscriptionHandler {
     }
 
     // Add a shortcut to the subscription list
-    subscribe(keys, callback) {
+    subscribeShortcut(keys, callback) {
         // Only add listeners if there are shortcuts subscribed
         if (this.getSubscribedSymbols.length === 0 && !this.listening) {
             this.addListeners();
