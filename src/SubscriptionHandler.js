@@ -18,6 +18,11 @@ class SubscriptionHandler {
         return Object.getOwnPropertySymbols(this.subscribed);
     }
 
+    wereShortcutsPressed() {
+        const symbols = this.getSubscribedSymbols();
+        return this.subscribed[symbols[0]];
+    }
+
     addListeners() {
         this.listening = true;
         window.addEventListener('keydown', this.handleKeyPresses);
@@ -39,16 +44,23 @@ class SubscriptionHandler {
         let shortcut = undefined;
         if(shortcut = this.wereShortcutsPressed()) {
             shortcut.callCallback();
+            this.called.push(shortcut);
         }
-    }
-
-    wereShortcutsPressed() {
-        const symbols = this.getSubscribedSymbols();
-        return this.subscribed[symbols[0]];
     }
 
     handleKeyUps(e) {
         delete this.registry[e.keyCode];
+
+        // check if any shortcut were called and reset their flags
+        if (this.called.length !== 0) {
+            const called = this.called;
+
+            for (let i = 0; i < called.length; i++) {
+                called[i].toggleCall();
+            }
+
+            this.called = [];
+        }
     }
 
     // Add a shortcut to the subscription list
