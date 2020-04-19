@@ -1,9 +1,9 @@
 {
   "name": "shortcutifier",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "dist/bundle.js",
-  "keywords": [],
+  "keywords": ["shortcut", "keyboard", "module"],
   "author": "",
   "license": "GNP3",
   "scripts": {
