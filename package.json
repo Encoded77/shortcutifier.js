@@ -2,9 +2,8 @@
   "name": "shortcutifier",
   "version": "1.0.0",
   "description": "A lib to help with adding shortcuts to websites",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -15,5 +14,11 @@
   "bugs": {
     "url": "https://github.com/Encoded77/shortcutifier.js/issues"
   },
-  "homepage": "https://github.com/Encoded77/shortcutifier.js#readme"
+  "homepage": "https://github.com/Encoded77/shortcutifier.js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-cli": "^6.26.0"
+  }
 }
