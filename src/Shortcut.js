@@ -9,6 +9,13 @@ class Shortcut {
         this.called = false; // Flag to avoid callback spam
     }
 
+    callCallback() {
+        if (!this.called) {
+            this.toggleCall();
+            this.callback();
+        } 
+    }
+
     toggleCall() {
         this.called = !this.called;
     }

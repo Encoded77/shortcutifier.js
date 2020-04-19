@@ -8,8 +8,14 @@ class SubscriptionHandler {
         this.registry = []; // registry of keys currently pressed
         this.subscribed = []; // Array of Shortcut objects
         this.listening = false; // flag on wether shortcutifier is listening to key presses
+        this.called = []; // array of shortcut that were called and flagged to not be called anymore to avoid callback spam
 
-        this.init();
+        this.handleKeyPresses = this.handleKeyPresses.bind(this)
+        this.handleKeyUps = this.handleKeyUps.bind(this)
+    }
+
+    getSubscribedSymbols() {
+        return Object.getOwnPropertySymbols(this.subscribed);
     }
 
     addListeners() {
@@ -22,21 +28,33 @@ class SubscriptionHandler {
     removeListeners() {
         window.removeEventListener('keydown', this.handleKeyPresses);
         window.removeEventListener('keyup', this.handleKeyUps);
+        console.log('ee')
+
         this.listening = false;
     }
 
     handleKeyPresses(e) {
+        this.registry[e.keyCode] = 1;
 
+        let shortcut = undefined;
+        if(shortcut = this.wereShortcutsPressed()) {
+            shortcut.callCallback();
+        }
+    }
+
+    wereShortcutsPressed() {
+        const symbols = this.getSubscribedSymbols();
+        return this.subscribed[symbols[0]];
     }
 
     handleKeyUps(e) {
-
+        delete this.registry[e.keyCode];
     }
 
     // Add a shortcut to the subscription list
     subscribe(keys, callback) {
         // Only add listeners if there are shortcuts subscribed
-        if (this.subscribed.length === 0 && !this.listening) {
+        if (this.getSubscribedSymbols.length === 0 && !this.listening) {
             this.addListeners();
         }
 
@@ -45,7 +63,6 @@ class SubscriptionHandler {
 
         // return method to unsubscribe the shortcut
         return () => {
-            console.log(this)
             this.unsubscribe(shortcutId)
         };
     }
@@ -55,7 +72,7 @@ class SubscriptionHandler {
         delete this.subscribed[symbol];
 
         // if there is no shortcuts subscribed, stop listening to key events
-        if (this.subscribed.length === 0 && this.listening) {
+        if (this.getSubscribedSymbols.length === 0 && this.listening) {
             this.removeListeners();
         }
     }
