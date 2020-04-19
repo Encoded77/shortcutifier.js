@@ -8,7 +8,6 @@ class SubscriptionHandler {
         this.registry = []; // registry of keys currently pressed
         this.subscribed = []; // Array of Shortcut objects
         this.listening = false; // flag on wether shortcutifier is listening to key presses
-        this.called = []; // array of shortcut that were called and flagged to not be called anymore to avoid callback spam
 
         this.handleKeyPresses = this.handleKeyPresses.bind(this)
         this.handleKeyUps = this.handleKeyUps.bind(this)
@@ -39,28 +38,17 @@ class SubscriptionHandler {
     }
 
     handleKeyPresses(e) {
+        if (this.registry[e.keyCode]) return; // Protect from spamming on when keys are held
         this.registry[e.keyCode] = 1;
 
         let shortcut = undefined;
         if(shortcut = this.wereShortcutsPressed()) {
-            shortcut.callCallback();
-            this.called.push(shortcut);
+            shortcut.callback();
         }
     }
 
     handleKeyUps(e) {
         delete this.registry[e.keyCode];
-
-        // check if any shortcut were called and reset their flags
-        if (this.called.length !== 0) {
-            const called = this.called;
-
-            for (let i = 0; i < called.length; i++) {
-                called[i].toggleCall();
-            }
-
-            this.called = [];
-        }
     }
 
     // Add a shortcut to the subscription list
