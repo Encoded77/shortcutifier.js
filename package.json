@@ -1,0 +1,19 @@
+{
+  "name": "shortcutifier",
+  "version": "1.0.0",
+  "description": "A lib to help with adding shortcuts to websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Encoded77/shortcutifier.js.git"
+  },
+  "author": "Thomas Dupré",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Encoded77/shortcutifier.js/issues"
+  },
+  "homepage": "https://github.com/Encoded77/shortcutifier.js#readme"
+}
