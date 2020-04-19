@@ -1,24 +1,22 @@
 {
   "name": "shortcutifier",
   "version": "1.0.0",
-  "description": "A lib to help with adding shortcuts to websites",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "scripts": {
-    "build": "babel src -d lib"
+    "clean": "rm dist/bundle.js",
+    "build-dev": "webpack -d --mode development",
+    "build-prod": "webpack -p --mode production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Encoded77/shortcutifier.js.git"
-  },
-  "author": "Thomas Dupré",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/Encoded77/shortcutifier.js/issues"
-  },
-  "homepage": "https://github.com/Encoded77/shortcutifier.js#readme",
+  "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "babel-loader": "latest",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "babel-cli": "^6.26.0"
+    "@babel/preset-env": "^7.9.5"
   }
 }
