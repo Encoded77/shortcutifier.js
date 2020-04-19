@@ -6,18 +6,6 @@ class Shortcut {
     constructor(keys, callback) {
         this.keys = keys;
         this.callback = callback;
-        this.called = false; // Flag to avoid callback spam
-    }
-
-    callCallback() {
-        if (!this.called) {
-            this.toggleCall();
-            this.callback();
-        } 
-    }
-
-    toggleCall() {
-        this.called = !this.called;
     }
 }
 

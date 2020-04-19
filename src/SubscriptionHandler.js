@@ -1,4 +1,5 @@
 import Shortcut from './Shortcut';
+import { contains } from './utils';
 
 /**
  * Main handler for shortcutifier
@@ -13,33 +14,37 @@ class SubscriptionHandler {
         this.handleKeyUps = this.handleKeyUps.bind(this)
     }
 
+    // get symbols from the subscribed shorcuts array
     getSubscribedSymbols() {
         return Object.getOwnPropertySymbols(this.subscribed);
     }
 
+    // Check if any shortcut combination is currently pressed
     wereShortcutsPressed() {
         const symbols = this.getSubscribedSymbols();
-        return this.subscribed[symbols[0]];
+        for (let i = 0; i < symbols.length; i++) {
+            const shortcut = this.subscribed[symbols[i]];
+            if (contains(shortcut.keys, this.registry)) {
+                return shortcut;
+            }
+        }
     }
 
     addListeners() {
         this.listening = true;
         window.addEventListener('keydown', this.handleKeyPresses);
         window.addEventListener('keyup', this.handleKeyUps);
-
     }
 
     removeListeners() {
         window.removeEventListener('keydown', this.handleKeyPresses);
         window.removeEventListener('keyup', this.handleKeyUps);
-        console.log('ee')
-
         this.listening = false;
     }
 
     handleKeyPresses(e) {
         if (this.registry[e.keyCode]) return; // Protect from spamming on when keys are held
-        this.registry[e.keyCode] = 1;
+        this.registry[e.keyCode] = e.keyCode;
 
         let shortcut = undefined;
         if(shortcut = this.wereShortcutsPressed()) {
