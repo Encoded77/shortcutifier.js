@@ -2,7 +2,7 @@
 .cache/
 coverage/
 src/
-!dist/index.html
+dist/index.html
 node_modules/
 *.log
 
@@ -15,3 +15,4 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 webpack.config.js
+.babelrc
