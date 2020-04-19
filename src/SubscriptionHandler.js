@@ -44,7 +44,7 @@ class SubscriptionHandler {
 
     handleKeyPresses(e) {
         if (this.registry[e.keyCode]) return; // Protect from spamming on when keys are held
-        this.registry[e.keyCode] = e.keyCode;
+        this.registry[e.keyCode] = e.keyCode; // Add the key to the registry of pressed keys
 
         let shortcut = undefined;
         if(shortcut = this.wereShortcutsPressed()) {
